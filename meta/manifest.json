@@ -1,0 +1,49 @@
+{
+  "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.9/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.9",
+  "version": "1.0.0",
+  "showLoadingIndicator": true,
+  "id": "279409ba-45ee-41e3-87a6-35e4eea13b92",
+  "packageName": "com.microsoft.teams.videApp",
+  "developer": {
+    "name": "Minliang Zhou",
+    "websiteUrl": "https://zhml530.github.io/emptyVideoApp",
+    "privacyUrl": "https://zhml530.github.io/emptyVideoApp",
+    "termsOfUseUrl": "https://zhml530.github.io/emptyVideoApp"
+  },
+  "icons": {
+    "color": "icon-color.png",
+    "outline": "icon-outline.png"
+  },
+  "name": {
+    "short": "Teams Empty VideoApp example",
+    "full": "Teams Empty VideoApp example"
+  },
+  "description": {
+    "short": "This repo demonstrate a minimal Teams video app.",
+    "full": "Clone this repo and change the video frame processing function"
+  },
+  "accentColor": "#FFFFFF",
+  "configurableTabs": [
+    {
+      "configurationUrl": "https://zhml530.github.io/emptyVideoApp/app/configure.html",
+      "canUpdateConfiguration": true,
+      "scopes": [
+        "groupchat"
+      ],
+      "context": [
+        "privateChatTab",
+        "meetingSidePanel",
+        "meetingDetailsTab",
+        "meetingChatTab"
+      ]
+    }
+  ],
+  "permissions": [
+    "identity",
+    "messageTeamMembers"
+  ],
+  "validDomains": [
+    "zhml530.github.io"
+  ]
+}
