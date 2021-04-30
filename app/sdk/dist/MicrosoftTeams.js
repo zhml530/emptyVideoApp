@@ -3414,6 +3414,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var communication_1 = __webpack_require__(0);
 var internalAPIs_1 = __webpack_require__(1);
 var constants_1 = __webpack_require__(2);
+var handlers_1 = __webpack_require__(3);
 /**
  * Namespace to video extensibility of the SDK.
  *
@@ -3475,26 +3476,28 @@ var videoApp;
             communication_1.sendMessageToParent('videoApp.registerForVideoEffect');
         };
         /**
-         * Message handler
+         * Message handler for new video frame
          */
-        VideoApp.prototype.receiveMessage = function (event) {
-            var type = event.data.type;
-            if (type === 'videoApp.newVideoFrame' && this.videoFrameCallback != null) {
+        VideoApp.prototype.processNewVideoFrame = function (event) {
+            if (this.videoFrameCallback !== null) {
                 var videoFrame = event.data.videoFrame;
                 this.videoFrameCallback(videoFrame, this.notifyVideoFrameProcessed.bind(this), this.notifyError.bind(this));
             }
-            else if (type === 'videoApp.effectParameterChange' && this.videoEffectCallback != null) {
+        };
+        /**
+         * Message handler for video effect change
+         */
+        VideoApp.prototype.processVideoEffectChange = function (event) {
+            if (this.videoEffectCallback !== null) {
                 this.videoEffectCallback(event.data.effectId);
-            }
-            else {
-                console.log('Unsupported message type' + type);
             }
         };
         /**
          * Setup the connection between videoApp and Teams, they use postMessage function to communicate
          */
         VideoApp.prototype.setupConnection = function () {
-            window.addEventListener('message', this.receiveMessage.bind(this), false);
+            handlers_1.registerHandler('videoApp.newVideoFrame', this.processNewVideoFrame.bind(this));
+            handlers_1.registerHandler('videoApp.effectParameterChange', this.processVideoEffectChange.bind(this));
         };
         /**
          * sending notification to Teams client finished the video frame processing, now Teams client can render this video frame
